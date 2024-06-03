@@ -26,7 +26,7 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
   
 
 ## Philosophy & Goals
-1) Domain Driven Design to abstract/model the truth for the whole ecosystem with high level code.
+1) Domain Driven Design to abstract/model the truth for the whole ecosystem with strong/static typed code.
    1) Infrastrucutre & Platform
    2) Repeatable & testable
 3) Application architecture as actual code to describe services' relationship.
@@ -51,11 +51,17 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
 2) Abstract contracting/interface/boundary of each service, define them in static and strong typed code so that:
    1) Better IDE support.
    2) Validate as early as compilation.
-3) Define services' contracts in one repo as lib, and a central service to implement typical services and coordinate cross service dependencies.
-4) AWS CDK to describe data/function model
-5) Github as source repo and Github workflow as continue deployment service.
-6) AWS Cloudformation service to execute different stacks
-7) Basic build types:
+3) Public configurations for integration and keep configurations to private for the implementation and runtime.
+   1) Define infra & services' contracts in one repo as lib, and a central service to implement typical services and coordinate cross service dependencies.
+      1) In Java it's interface 1st.
+      2) In DDD, Boundary
+      3) I call it contracts inbetween different domains.
+   3) Keep implementation details like Lambda, container or InstanceType in private configuration store
+   4) Keep runtime configuration like how many instances in autoscaling group in private configuration store
+5) AWS CDK to describe data/function model
+6) Github as source repo and Github workflow as continue deployment service.
+7) AWS Cloudformation service to execute different stacks
+8) Basic build types:
    1) container image to ECR
    2) ECR image deploy to EKS
    8) npm package to github package
