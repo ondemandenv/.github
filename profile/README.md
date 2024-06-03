@@ -71,7 +71,7 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
     1) rds serverless v2 postgres
     12) eks cluster
 
-## How to 
+## How it works
 1) I have a working prototye working for all key aspects but still testing on details, contact gary.y.7811 AT gmail if you want to know more.
 2) My sandbox domain model is open now: check out https://github.com/ondemandenv/odmd-build-contracts
 3) Typical process to add new things is to define a build in two parts:
@@ -83,6 +83,9 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
    3) Implementing the contract, this is optional because there are typical basic implementations can be used by declaration in contracts repo.
 4) The central account as an implementation of the contracts( like https://github.com/ondemandenv/odmd-build-contracts ) will deploy infrastructures including "pipelines" to
    1) Develop and Maintain infrastructures to deploy and maintain relationships among services and infrastructure.
-   2) trigger pipeline to run this build.
-   6) build's output( described as producers ) will trigger consuming builds.
-   7) Events drive the building network instead of pipeline.
+      2) Auth among Github and mulitple AWS accounts.
+      3) Events handling
+      4) Triggering mutating pipeline
+   3) Monitoring resources and triggering pipeline to react to change a
+      6) build's output( described as producers )'s change will trigger consuming builds.
+      7) Events drive the building network instead of pipeline.
