@@ -26,19 +26,21 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
   
 
 ## Philosophy & Goals
-1) For a distributed systems like SOA/microservice, each service needs multiple environment/versions, so that 
-   1) developers can compare different versions of code/config by comparing different deployed actual running environments.
-   2) developers can experiment discover and learn.
-   3) multiple environments to run more tests in different scenarios in parallel.
-2) Application architecture as actual code to describe services' relationship.
+1) Domain Driven Design to abstract/model the truth for the whole ecosystem with high level code.
+   1) Infrastrucutre & Platform
+   2) Repeatable & testable
+3) Application architecture as actual code to describe services' relationship.
    1) Abstract contracting/interface/boundary of each service, define relationship among in code.
    2) Each service implements its contracting/interface/boundary, generate its deployment manifests/plans.
    3) Monitoring deployments of each environment/version of each service
-3) Automation, event driven and plan/simulation
+5) For a distributed systems like SOA/microservice, each service needs multiple environment/versions, so that 
+   1) developers can compare different versions of code/config by comparing different deployed actual running environments.
+   2) developers can experiment discover and learn.
+   3) multiple environments to run more tests in different scenarios in parallel.
+6) Automation, event driven and plan/simulation
    1) Dynamically generating DAG of dependency
    2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
    3) Configurable manual verification/approval based on IAM
-
 
 ## Implementation abstraction
 1) Data Model: team<-1:m->repo<-1:m->build<-1:m->service[deployment] | artifacts
