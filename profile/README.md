@@ -23,6 +23,7 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
    2) Can require multiple commits and multiple deployments across multiple repos for a single change.
    3) Too many repeats in yamls across many files and repos, complexity grows exponentially.
    4) Certain files can easily reach thousands of lines, making it not scalable/sustainable
+5) When using AWS CDK code as bash scripts without proper architecting & framework, it stucks ...
   
 
 ## Philosophy & Goals
