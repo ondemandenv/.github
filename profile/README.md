@@ -3,12 +3,12 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
 1) Maintain the consistency/certainty inbetween parts of each service is difficult.
    1) Missing assets/image
    2) Using wrong configuration from
-      3) code repo
-      4) secret store
-      5) configuration store
+      1) code repo
+      2) secret store
+      3) configuration store
 2) Maintain the consistency/certainty inbetween services is even more difficult.
-   3) beside configuration, service API changing
-   4) messaging schema changing
+   1) beside configuration, service API changing
+   2) messaging schema changing
 3) Manual configuration already reached to limit
    1) Can't remember what/how/why/where/when, can easily be hijacked
       1) who/how/why created that repo?
