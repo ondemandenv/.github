@@ -81,7 +81,8 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
       3) what value it consumes from others, vpc cidr? eks-cluster, ECR repo? authentication service's endpoint?
       4) what value it produces, messaing topic? api endpoints? image in ECR? or package in github?
    3) Implementing the contract, this is optional because there are typical basic implementations can be used by declaration in contracts repo.
-   4) let the central deploy infrastructures including pipelines to build's aws account and github repo.
-   5) trigger pipeline to run this build.
-   6) build's output will trigger other builds.
+4) The central account as an implementation of the contracts( like https://github.com/ondemandenv/odmd-build-contracts ) will deploy infrastructures including "pipelines" to
+   1) Develop and Maintain infrastructures to deploy and maintain relationships among services and infrastructure.
+   2) trigger pipeline to run this build.
+   6) build's output( described as producers ) will trigger consuming builds.
    7) Events drive the building network instead of pipeline.
