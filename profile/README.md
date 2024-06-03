@@ -70,14 +70,17 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
     1) rds serverless v2 postgres
     12) eks cluster
 
-## How to use
-1) Define a build in two parts:
+## How to 
+1) I have a working prototye working for all key aspects but still testing on details, contact gary.y.7811 AT gmail if you want to know more.
+2) My sandbox domain model is open now: check out https://github.com/ondemandenv/odmd-build-contracts
+3) Typical process to add new things is to define a build in two parts:
    1) In contracts repo together with other builds to declare how it contracts with other builds.
       1) which repo and how to build
       2) bootstraping target AWS account/region.
       3) what value it consumes from others, vpc cidr? eks-cluster, ECR repo? authentication service's endpoint?
       4) what value it produces, messaing topic? api endpoints? image in ECR? or package in github?
    3) Implementing the contract, this is optional because there are typical basic implementations can be used by declaration in contracts repo.
-3) let the central deploy infrastructures including pipelines to build's aws account and github repo.
-4) trigger pipeline to run this build.
-5) build's output will trigger other builds.
+   4) let the central deploy infrastructures including pipelines to build's aws account and github repo.
+   5) trigger pipeline to run this build.
+   6) build's output will trigger other builds.
+   7) Events drive the building network instead of pipeline.
