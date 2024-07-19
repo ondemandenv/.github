@@ -1,14 +1,17 @@
 ## Motivation
 Distributed systems like SOA/microservice are very difficult to develop, each service can take many parts to work, services can depend on each other for various reasons, this brings up the problems:
 1) Maintain the consistency/certainty inbetween parts of each service is difficult.
-   1) Missing assets/image
-   2) Using wrong configuration from
+   1) Missing assets/image/config
+   2) Using wrong configuration version from
       1) code repo
       2) secret store
       3) configuration store
+   4) Auth and least privilige V.S. convenience.
 2) Maintain the consistency/certainty inbetween services is even more difficult.
    1) beside configuration, service API changing
    2) messaging schema changing
+   3) versioning of each service
+   4) monitoring and alarming
 3) Manual configuration already reached to limit
    1) Can't remember what/how/why/where/when, can easily be hijacked
       1) who/how/why created that repo?
@@ -28,8 +31,8 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
 
 ## Philosophy & Goals
 1) Domain Driven Design to abstract/model the truth for the whole ecosystem with strong/static typed code.
-   1) Infrastrucutre & Platform
-   2) Repeatable & testable, so that we can test changes in consistent envrironments.
+   1) Infrastrucutre & Platform manage dependencies among multiple versioned services and platform, also all services' lifecycle.
+   3) Repeatable & testable, so that we can test changes in consistent envrironments.
 3) Application architecture as actual code to describe services' relationship.
    1) Abstract contracting/interface/boundary of each service, define relationship among in code.
    2) Each service implements its contracting/interface/boundary, generate its deployment manifests/plans.
@@ -39,8 +42,9 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
    2) developers can experiment discover and learn.
    3) multiple environments to run more tests in different scenarios in parallel.
 6) On demand environment,
-   1) By git branching/tagging which event driving automation to create/destroy new version of code/environment.
-   2) Show version and environment status with github statuses.
+   1) By git branching/tagging which event driving automation to create/destroy new version of code to environment.
+   2) Monitor/alarm environments' dependency versioning
+   3) Environment lifecycle/status sync with github workflow statuses.
 8) Monitoring and simulation:
    1) Dynamically generating DAG of dependency
    2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
