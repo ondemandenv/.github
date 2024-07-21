@@ -1,4 +1,4 @@
-## Motivation
+## Challenges & Motivation
 Distributed systems like SOA/microservice are very difficult to develop, each service can take many parts to work, services can depend on each other for various reasons, this brings up the problems:
 1) Maintain the consistency/certainty inbetween parts of each service is difficult.
    1) Missing assets/image/config
@@ -17,32 +17,32 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
       1) who/how/why created that repo?
       2) what/how/where/when is the repo deployed last time?
       4) how other services are using/depending on the repo?
-      5) Is the code in the repo consistent to the deployed?
    2) Human mistake is inevitable and taking significant effort
       3) one typo can easily take hours for a complex system
       4) too difficult to track every change.
 4) GitOps can't handle the complexity, templating yamls are the new binary in cloud era.
-   1) Too shallow and ridgid to adapt change, simple change can require huge unpractical amount of change of yamls.
+   1) Too shallow and rigid to adapt change, simple change can require huge unpractical amount of change of yamls.
    2) Can require multiple commits and multiple deployments across multiple repos for a single change.
    3) Too many repeats in yamls across many files and repos, complexity grows exponentially.
    4) Certain files can easily reach thousands of lines, making it not scalable/sustainable
-5) When using AWS CDK code as bash scripts without proper architecting & framework, it stucks ...
+5) Authentication & Authorization for each service making things difficult.
+6) When using AWS CDK code as bash scripts without proper architecting & framework, it stucks ...
   
 
 ## Philosophy & Goals
-1) Domain Driven Design to abstract/model the truth for the whole ecosystem with strong/static typed code.
-   1) Infrastrucutre & Platform manage dependencies among multiple versioned services and platform, also all services' lifecycle.
-   3) Repeatable & testable, so that we can test changes in consistent envrironments.
+1) Domain Driven Design to abstract/model the truth to loosely coupled among app/services and underlying platforms.
+   1) Infra as code managing dependencies among multiple versioned services and platform, also all services' lifecycle.
+   3) Code generated repeatable & testable environment, so that we can test consistently.
 3) Application architecture as actual code to describe services' relationship.
    1) Abstract contracting/interface/boundary of each service, define relationship among in code.
    2) Each service implements its contracting/interface/boundary, generate its deployment manifests/plans.
    3) Monitoring deployments of each environment/version of each service
-5) For a distributed systems like SOA/microservice, each service needs multiple environment/versions, so that 
+5) For a distributed systems like SOA/microservice, each service deploys to multiple environment/versions, so that 
    1) developers can compare different versions of code/config by comparing different deployed actual running environments.
    2) developers can experiment discover and learn.
    3) multiple environments to run more tests in different scenarios in parallel.
-6) On demand environment,
-   1) By git branching/tagging which event driving automation to create/destroy new version of code to environment.
+6) On demand environment, ultimate flexibility for developers.
+   1) By git branching/tagging which event driving automation to create/destroy new version of code/environment.
    2) Monitor/alarm environments' dependency versioning
    3) Environment lifecycle/status sync with github workflow statuses.
 8) Monitoring and simulation:
@@ -50,49 +50,78 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
    2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
    3) Configurable manual verification/approval based on IAM
 
-## Implementation abstraction
-1) Data Model: team<-1:m->repo<-1:m->build<-1:m->service[deployment] | artifacts
-   1) service[deployment] providing and consuming APIs by endpoints/topics.
-   2) artifacts are container image or packages to be deployed as part of a service.
-   3) service and artifacts both can have multiple versions/environments
-   4) see https://github.com/ondemandenv/odmd-build-contracts for more details.
-2) Abstract contracting/interface/boundary of each service, define them in static and strong typed code so that:
-   1) Better IDE support.
-   2) Validate as early as compilation.
-3) Public configurations for integration and keep configurations to private for the implementation and runtime.
-   1) Define infra & services' contracts in one repo as lib, and a central service to implement typical services and coordinate cross service dependencies.
-      1) In Java it's interface 1st.
-      2) In DDD, Boundary
-      3) I call it contracts inbetween different domains.
-   3) Keep implementation details like Lambda, container or InstanceType in private configuration store
-   4) Keep runtime configuration like how many instances in autoscaling group in private configuration store
-5) AWS CDK to describe data/function model
-6) Github as source repo and Github workflow as continue deployment service.
-7) AWS Cloudformation service to execute different stacks
-8) Basic build types:
-   1) container image to ECR
-   2) ECR image deploy to EKS
-   8) npm package to github package
-   9) aws cdk deployment
-10) provided basic services.
-    1) rds serverless v2 postgres
-    12) eks cluster
+## Example situation:
 
-## How it works
-1) I have a working prototye working for all key aspects but still testing on details, contact gary.y.7811 AT gmail if you want to know more.
-2) My sandbox domain model is open now: check out https://github.com/ondemandenv/odmd-build-contracts
-3) Typical process to add new things is to define a build in two parts:
-   1) In contracts repo together with other builds to declare how it contracts with other builds.
-      1) which repo and how to build
-      2) bootstraping target AWS account/region.
-      3) what value it consumes from others, vpc cidr? eks-cluster, ECR repo? authentication service's endpoint?
-      4) what value it produces, messaing topic? api endpoints? image in ECR? or package in github?
-   3) Implementing the contract, this is optional because there are typical basic implementations can be used by declaration in contracts repo.
-4) The central account as an implementation of the contracts( like https://github.com/ondemandenv/odmd-build-contracts ) will deploy infrastructures including "pipelines" to
-   1) Develop and Maintain infrastructures to deploy and maintain relationships among services and infrastructure.
-      2) Auth among Github and mulitple AWS accounts.
-      3) Events handling
-      4) Triggering mutating pipeline
-   3) Monitoring resources and triggering pipeline to react to change a
-      6) build's output( described as producers )'s change will trigger consuming builds.
-      7) Events drive the building network instead of pipeline.
+### Containerized SpringBoot app deploy into EKS: 
+1) Springboot repo with CICD job to build docker image and push to a image repository
+2) Infrastructure repo with CICD job to deploy AWS resources
+   1) databases like DynamoDB, RDS.
+   2) file systems like S3, EFS.
+   3) messaging bus like Event Bridge, Kinesis.
+3) Kustomize/Helm repo for K8s manifests inside EKS cluster
+   1) Ingress/Gateway
+   2) Cert 
+3) monitor/alarms for each part.
+
+### These are tightly coupled parts of one app/service, but usually handled by different teams 
+1) application team
+2) devops/sre
+3) infra and security
+4) platform ...
+
+### This takes many steps and teams which results in tedious, rigid and fragile deployments
+
+
+## Solution with example
+### The Contracts Lib, defines each app/service's boundary/interface and dependencies among them.
+In DDD, boundary( bounded contexts ); 
+In OOP, Encapsulation; 
+In Java, Interface-first;
+
+Here it's a code library describing each app/services' IO/dependencies and acting as contracts among app/services and the platforms.
+
+See [example of the contracts](https://github.com/ondemandenv/odmd-build-contracts)
+
+1) Platforms like Networking, EKS as seperated app/services:
+   1) Networking app/service provides cidr, vpc, transit gateway across accounts
+   2) EKS app/service provides kubectl endpoints for deploying CDK8s resources
+2) Resources like RDS cluster can be a standalone app/service providing database/schema for other app/service, also can be part of one app/service.
+3) Dependencies among them are expressed in producer and consumers explicitly.
+4) Each app/service has its own repo implementing the contracts lib and use the contracts lib as a code dependency.
+
+### The App/Service Repo define/maintains all parts and dependencies inside one environment, typically one stack
+Each app/service has its own repo using The Contracts Lib, implementing its interface/IO.
+1) The single stack manage all resources of one app/service as a unit.
+   2) These resources are tightly coupled by nature.
+   3) Dependencies inside are automatically handled.
+   3) Topologically deployed or rollback as a transaction!
+2) It can be a stack of any like CDK/Cloudformation/Terraform/OpenToFu. 
+3) Custom resource/controller CRD/Custom Providers to bring resources in different system into one stack
+When using AWS CDK,
+   3) RDS schema/role/user so that it can be used as part of a stack.
+   4) CDK8s resource for K8s manifest as part of a stack.
+3) All App/Service Repos depend on each other, and declare dependencies with consume and produce thru The Contracts Lib
+
+
+### Centralize automation and configurations
+The contracts lib provides all dependencies information, with which Central automation with create jobs 
+that deploy each environment and sync concrete values to central configuration store, which provides dependencies used by other app/services. 
+1) Central automation interprets the contracts lib which only describe the contracts, each app/service will implement the contracts.
+2) Central automation maintain multiple versions of deployments that are different environments.   
+2) Central configuration store typically has configurations and how it's used by each environment like: 
+   2) Container Image tag/sha
+   3) Endpoints of service, schema
+   4) Cidr
+   5) global IDs
+2) Central automation will make sure Least privilege across multiple accounts and systems. 
+
+### Create new environment by tagging or branching
+One App/Service Repo can deploy into multiple environments, the central automation create/destroy environments 
+based on The Contracts Lib and app/service's repo's tag/branch structure:
+
+1) branch based environment will be updated incrementally when pushed AND dependencies
+2) tag based environment can only be created/deleted.
+
+The following is only a symbolic diagram, see [ real example of a contracts](https://github.com/ondemandenv/odmd-build-contracts)
+![img_1.png](img_1.png)
+
