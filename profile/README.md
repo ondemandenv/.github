@@ -25,33 +25,33 @@ services can depend on each other for various reasons, this brings up the proble
         4) too difficult to track every change.
 4) Local optimization vs big picture
 5) Short term gaining vs long term stratigey
-5) GitOps can't handle the complexity, templating yamls are the new binary in cloud era.
+6) GitOps can't handle the complexity, templating yamls are the new binary in cloud era.
     1) Too shallow and rigid to adapt change, simple change can require huge unpractical amount of change of yamls.
     2) Can require multiple commits and multiple deployments across multiple repos for a single change.
     3) Too many repeats in yamls across many files and repos, complexity grows exponentially.
     4) Certain files can easily reach thousands of lines, making it not scalable/sustainable
-5) Authentication & Authorization for each service making things difficult.
-6) When using AWS CDK code as bash scripts without proper architecting & framework, it stucks ...
+7) Authentication & Authorization for each service making things difficult.
+8) When using AWS CDK code as bash scripts without proper architecting & framework, it stucks ...
 
 ## Philosophy & Goals
 
 1) Domain Driven Design to abstract/model the truth to loosely coupled among app/services and underlying platforms.
     1) Infra as code managing dependencies among multiple versioned services and platform, also all services' lifecycle.
     3) Code generated repeatable & testable & replaceable environment, so that we can test consistently.
-3) Application architecture as actual code to describe services' relationship.
+2) Application architecture as actual code to describe services' relationship.
     1) Abstract contracting/interface/boundary of each service, define relationship among in code.
     2) Each service implements its contracting/interface/boundary, generate its deployment manifests/plans.
     3) Monitoring deployments of each environment/version of each service
-5) For a distributed systems like SOA/microservice, each service deploys to multiple environment/versions, so that
+3) For a distributed systems like SOA/microservice, each service deploys to multiple environment/versions, so that
     1) developers can compare different versions of code/config by comparing different deployed actual running
        environments.
     2) developers can experiment discover and learn.
     3) multiple environments to run more tests in different scenarios in parallel.
-6) On demand environment, ultimate flexibility for developers.
+4) On demand environment, ultimate flexibility for developers.
     1) By git branching/tagging which event driving automation to create/destroy new version of code/environment.
     2) Monitor/alarm environments' dependency versioning
     3) Environment lifecycle/status sync with github workflow statuses.
-8) Monitoring and simulation:
+5) Monitoring and simulation:
     1) Dynamically generating DAG of dependency
     2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
     3) Configurable manual verification/approval based on IAM
@@ -125,10 +125,10 @@ by other app/services.
    the contracts.
 2) Central automation maintain multiple versions of deployments that are different environments.
 2) Central configuration store typically has configurations and how it's used by each environment like:
-    2) Container Image tag/sha
-    3) Endpoints of service, schema
-    4) Cidr
-    5) global IDs
+    1) Container Image tag/sha
+    2) Endpoints of service, schema
+    3) Cidr
+    4) global IDs
 2) Central automation will make sure Least privilege across multiple accounts and systems.
 
 ### Create new environment by tagging or branching
@@ -154,18 +154,18 @@ Intriguing facts already solved/implemented:
 Current status: implementing/testing onboarding process:
 
 1) Create your AWS org
-    2) Central auto account
-    3) Networking admin delegation account
-    4) Workspace accounts for different app/services
-    5) Make networking and workspace accounts trust central auto account
+    1) Central auto account
+    2) Networking admin delegation account
+    3) Workspace accounts for different app/services
+    4) Make networking and workspace accounts trust central auto account
 2) Install odmd github app to app/service repos
-    3) Networking repo. will be a fork from Ondemandenv's
-    4) RDS cluster, a fork from Ondemandenv's
-    5) EKS cluster, a fork from Ondemandenv's
-    6) Other app/service repos
-2) Define your Contracts Lib with
-    3) Created Aws Accounts and Github repos
-    4) Github App installation ID
-    5) Emails for each app/service
-3) Deploy the seeding stack into central auto account, wait central auto initialize and deploy all app/services with
+    1) Networking repo. will be a fork from Ondemandenv's
+    2) RDS cluster, a fork from Ondemandenv's
+    3) EKS cluster, a fork from Ondemandenv's
+    4) Other app/service repos
+3) Define your Contracts Lib with
+    1) Created Aws Accounts and Github repos
+    2) Github App installation ID
+    3) Emails for each app/service
+4) Deploy the seeding stack into central auto account, wait central auto initialize and deploy all app/services with
    email notification
