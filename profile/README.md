@@ -20,7 +20,9 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
    2) Human mistake is inevitable and taking significant effort
       3) one typo can easily take hours for a complex system
       4) too difficult to track every change.
-4) GitOps can't handle the complexity, templating yamls are the new binary in cloud era.
+4) Local optimization vs big picture
+5) Short term gaining vs long term stratigey 
+5) GitOps can't handle the complexity, templating yamls are the new binary in cloud era.
    1) Too shallow and rigid to adapt change, simple change can require huge unpractical amount of change of yamls.
    2) Can require multiple commits and multiple deployments across multiple repos for a single change.
    3) Too many repeats in yamls across many files and repos, complexity grows exponentially.
@@ -32,7 +34,7 @@ Distributed systems like SOA/microservice are very difficult to develop, each se
 ## Philosophy & Goals
 1) Domain Driven Design to abstract/model the truth to loosely coupled among app/services and underlying platforms.
    1) Infra as code managing dependencies among multiple versioned services and platform, also all services' lifecycle.
-   3) Code generated repeatable & testable environment, so that we can test consistently.
+   3) Code generated repeatable & testable & replaceable environment, so that we can test consistently.
 3) Application architecture as actual code to describe services' relationship.
    1) Abstract contracting/interface/boundary of each service, define relationship among in code.
    2) Each service implements its contracting/interface/boundary, generate its deployment manifests/plans.
@@ -120,8 +122,30 @@ One App/Service Repo can deploy into multiple environments, the central automati
 based on The Contracts Lib and app/service's repo's tag/branch structure:
 
 1) branch based environment will be updated incrementally when pushed AND dependencies
-2) tag based environment can only be created/deleted.
+2) tag based environment is immutable can only be created/deleted.
+3) tag based environment should only consume from tag based environments :)
 
-The following is only a symbolic diagram, see [ real example of a contracts](https://github.com/ondemandenv/odmd-build-contracts)
+The following is a symbolic diagram to show how an app/service consuming endpoints from others, also provides endpoints for others to consume
 ![img_1.png](img_1.png)
+The real world contracts are complex, see [ real example of a contracts](https://github.com/ondemandenv/odmd-build-contracts).
 
+Intriguing facts already solved/implemented:
+1) Circular dependencies like networking v.s. dns delegation/hostzone for each app/service.
+2) Use AWS Api Gateway to route traffic thru NLB into EKS to support app/services out of EKS 
+
+Current status: implementing/testing onboarding process: 
+1) create your AWS org  
+   2) central auto account
+   3) networking admin delegation account
+   4) workspace accounts for different app/services
+   5) make networking and workspace accounts trust central auto account
+2) install odmd github app to app/service repos
+   3) networking repo. will be a fork from Ondemandenv's 
+   4) RDS cluster, a fork from Ondemandenv's
+   5) EKS cluster, a fork from Ondemandenv's
+   6) other app/service repos
+2) Define your Contracts Lib with 
+   3) created Aws Accounts and Github repos
+   4) Github App installation ID
+   5) emails for each app/service
+3) deploy the seeding stack into central auto account, wait central auto initialize and deploy all app/services with email notification
