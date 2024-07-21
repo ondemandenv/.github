@@ -9,7 +9,7 @@ services can depend on each other for various reasons, this brings up the proble
         1) code repo
         2) secret store
         3) configuration store
-    4) Auth and least privilige V.S. convenience.
+    3) Auth and least privilige V.S. convenience.
 2) Maintain the consistency/certainty inbetween services is even more difficult.
     1) beside configuration, service API changing
     2) messaging schema changing
@@ -19,10 +19,10 @@ services can depend on each other for various reasons, this brings up the proble
     1) Can't remember what/how/why/where/when, can easily be hijacked
         1) who/how/why created that repo?
         2) what/how/where/when is the repo deployed last time?
-        4) how other services are using/depending on the repo?
+        3) how other services are using/depending on the repo?
     2) Human mistake is inevitable and taking significant effort
-        3) one typo can easily take hours for a complex system
-        4) too difficult to track every change.
+        1) one typo can easily take hours for a complex system
+        2) too difficult to track every change.
 4) Local optimization vs big picture
 5) Short term gaining vs long term stratigey
 6) GitOps can't handle the complexity, templating yamls are the new binary in cloud era.
@@ -31,13 +31,13 @@ services can depend on each other for various reasons, this brings up the proble
     3) Too many repeats in yamls across many files and repos, complexity grows exponentially.
     4) Certain files can easily reach thousands of lines, making it not scalable/sustainable
 7) Authentication & Authorization for each service making things difficult.
-8) When using AWS CDK code as bash scripts without proper architecting & framework, it stucks ...
+8) When using AWS CDK code as shell scripts without proper architecting & framework, it stuck ...
 
 ## Philosophy & Goals
 
-1) Domain Driven Design to abstract/model the truth to loosely coupled among app/services and underlying platforms.
+1) Domain Driven Design to abstract/model the truth to loosely coupled app/services and underlying platforms.
     1) Infra as code managing dependencies among multiple versioned services and platform, also all services' lifecycle.
-    3) Code generated repeatable & testable & replaceable environment, so that we can test consistently.
+    2) Code generated repeatable & testable & IMMUTABLE & REPLACEABLE environment.
 2) Application architecture as actual code to describe services' relationship.
     1) Abstract contracting/interface/boundary of each service, define relationship among in code.
     2) Each service implements its contracting/interface/boundary, generate its deployment manifests/plans.
