@@ -152,6 +152,7 @@ Intriguing facts already solved/implemented:
 2) Use AWS Api Gateway to route traffic thru NLB into EKS to support app/services out of EKS
 
 Current status: implementing/testing onboarding process:
+![img.png](img.png)
 
 1) Create your AWS org
     1) Central auto account
@@ -167,5 +168,5 @@ Current status: implementing/testing onboarding process:
     1) Created Aws Accounts and Github repos
     2) Github App installation ID
     3) Emails for each app/service
-4) Deploy the seeding stack into central auto account, wait central auto initialize and deploy all app/services with
+4) Deploy the seeding stack into your central auto account, wait central auto initialize and deploy all app/services with
    email notification
