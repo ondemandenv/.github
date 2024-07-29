@@ -151,22 +151,28 @@ Intriguing facts already solved/implemented:
 1) Circular dependencies like networking v.s. dns delegation/hostzone for each app/service.
 2) Use AWS Api Gateway to route traffic thru NLB into EKS to support app/services out of EKS
 
-Current status: implementing/testing onboarding process:
-![img.png](img.png)
+Setup -- Customer has total control of all:
+![img_3.png](img_3.png)
 
-1) Create your AWS org
-    1) Central auto account
-    2) Networking admin delegation account
-    3) Workspace accounts for different app/services
-    4) Make networking and workspace accounts trust central auto account
-2) Install odmd github app to app/service repos
-    1) Networking repo. will be a fork from Ondemandenv's
-    2) RDS cluster, a fork from Ondemandenv's
-    3) EKS cluster, a fork from Ondemandenv's
-    4) Other app/service repos
-3) Define your Contracts Lib with
+Setup -- cost:
+1) Above basic set up is good enough to test serverless applications and it is nearly free, less than 2 US dollars a day for my debugging. 
+   2) github app is free, 
+   3) AWS is serverless cost is by usage. 
+2) when setting up Network for VPC across Accounts:
+   1) Ipam  will cost one US dollar plus traffic.
+   2) NAT  will cost one US dollar plus traffic.
+   3) Transit Gateway will cost one US dollar plus traffic.
+4) when setting up eks cluster
+   1) eks will have a cost as service
+   2) eks instance will cost
+   3) Related KMS will cost by usage
+
+After setup of above, we define
+3) Define your SOA as code in Contracts Lib:
     1) Created Aws Accounts and Github repos
     2) Github App installation ID
     3) Emails for each app/service
 4) Deploy the seeding stack into your central auto account, wait central auto initialize and deploy all app/services with
    email notification
+
+Current status: Neo4j based UI, and examples.
