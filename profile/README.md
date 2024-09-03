@@ -59,11 +59,21 @@ services can depend on each other for various reasons, this brings up the proble
     2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
     3) Configurable manual verification/approval based on IAM
 
-## High level Abstraction of branch/tag as environment dependency DAG:
+### How it works
+1) 
+    
+### High level Abstraction of branch/tag as environment dependency DAG:
 
 The following is a symbolic diagram to show how an app/service consuming endpoints from others, also provides endpoints
 for others to consume
 ![img_1.png](img.png)
+
+### Concrete branch/tag as environment dependency DAG:
+
+[Interactive GUI of contracts](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html)
+
+When selecting node, we can see the stack id and the stack parameter and outputs
+![img_1.png](img_1.png)
 
 ### Setup -- Customer has total control of all:
 
@@ -93,8 +103,10 @@ After setup of above, we define
    email notification
 
 ## Examples:
+https://github.com/ondemandenv as github organization has one [Contract Lib](https://github.com/ondemandenv/odmd-build-contracts) containing two app/services
 
-### [Springboot cross multiple VPC in different accounts](example-springboot-vpc-eks.md)
 
-### [Serverless Step functions need no VPC](example-serverless-sfn.md)
+### [Springboot deploy to EKS cross VPCs in different accounts](example-springboot-vpc-eks.md)
+
+### [Serverless Step functions need no VPC at all](example-serverless-sfn.md)
 
