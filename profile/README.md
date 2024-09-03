@@ -86,6 +86,7 @@ services can depend on each other for various reasons, this brings up the proble
 In DDD, boundary( bounded contexts );
 In OOP, Encapsulation;
 In Java, Interface-first;
+In K8S, CRD( custom resource definition );
 
 Here it's a code library describing each app/services' IO/dependencies and acting as contracts among app/services and
 the platforms.
@@ -154,25 +155,33 @@ Intriguing facts already solved/implemented:
 Setup -- Customer has total control of all:
 ![img_3.png](img_3.png)
 
-Setup -- cost:
-1) Above basic set up is good enough to test serverless applications and it is nearly free, less than 2 US dollars a day for my debugging. 
-   2) github app is free, 
-   3) AWS is serverless cost is by usage. 
+Setup
+
+1) Above basic set up is good enough to test serverless applications and it is nearly free, less than 2 US dollars a day
+   for my debugging.
+    2) github app is free for 2000 mins,
+    3) AWS is serverless cost is by usage.
 2) when setting up Network for VPC across Accounts:
-   1) Ipam  will cost one US dollar plus traffic.
-   2) NAT  will cost one US dollar plus traffic.
-   3) Transit Gateway will cost one US dollar plus traffic.
+    1) Ipam will cost one US dollar plus traffic.
+    2) NAT will cost one US dollar plus traffic.
+    3) Transit Gateway will cost one US dollar plus traffic.
 4) when setting up eks cluster
-   1) eks will have a cost as service
-   2) eks instance will cost
-   3) Related KMS will cost by usage
+    1) eks will have a cost as service
+    2) eks instance will cost
+    3) Related KMS will cost by usage
 
 After setup of above, we define
+
 3) Define your SOA as code in Contracts Lib:
     1) Created Aws Accounts and Github repos
     2) Github App installation ID
     3) Emails for each app/service
-4) Deploy the seeding stack into your central auto account, wait central auto initialize and deploy all app/services with
+4) Deploy the seeding stack into your central auto account, wait central auto initialize and deploy all app/services
+   with
    email notification
 
-Current status: Neo4j based UI, and examples.
+Dynamic UI: http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html
+
+
+Examples:
+
