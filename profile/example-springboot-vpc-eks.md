@@ -86,7 +86,6 @@ The following is a symbolic diagram to show how an app/service consuming endpoin
 for others to consume
 ![img_1.png](img_1.png)
 The real world contracts are complex,
-see [ real example of a contracts](https://github.com/ondemandenv/odmd-build-contracts).
+see more [ real example of a contracts](https://github.com/ondemandenv/odmd-build-contracts).
 
-Setup -- Customer has total control of all:
-![img_3.png](img_3.png)
+[Interactive GUI of contracts:](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html#vpc_eks)

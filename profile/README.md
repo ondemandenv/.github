@@ -58,9 +58,15 @@ services can depend on each other for various reasons, this brings up the proble
     1) Dynamically generating DAG of dependency
     2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
     3) Configurable manual verification/approval based on IAM
-   
+
 ## How it works:
+
+The following is a symbolic diagram to show how an app/service consuming endpoints from others, also provides endpoints
+for others to consume
+![img_1.png](img.png)
+
 ### Setup -- Customer has total control of all:
+
 ![img_3.png](img_3.png)
 
 1) Above basic set up is good enough to test serverless applications and it is nearly free, less than 2 US dollars a day
@@ -86,10 +92,9 @@ After setup of above, we define
    with
    email notification
 
-Dynamic UI: http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html
-
 ## Examples:
 
 ### [Springboot cross multiple VPC in different accounts](example-springboot-vpc-eks.md)
+
 ### [Serverless Step functions need no VPC](example-serverless-sfn.md)
 
