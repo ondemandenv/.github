@@ -90,6 +90,6 @@ Dynamic UI: http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.a
 
 ## Examples:
 
-### [Springboot cross multiple VPC in different accounts](/example-springboot-vpc-eks.md)
+### [Springboot cross multiple VPC in different accounts](example-springboot-vpc-eks.md)
 ### [Serverless Step functions need no VPC](example-serverless-sfn.md)
 
