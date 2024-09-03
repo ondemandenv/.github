@@ -59,7 +59,7 @@ services can depend on each other for various reasons, this brings up the proble
     2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
     3) Configurable manual verification/approval based on IAM
 
-## How it works:
+## High level Abstraction of branch/tag as environment dependency DAG:
 
 The following is a symbolic diagram to show how an app/service consuming endpoints from others, also provides endpoints
 for others to consume
