@@ -35,8 +35,8 @@ services can depend on each other for various reasons, this brings up the proble
 
 ## Philosophy & Goals
 
-1) Domain Driven Design to abstract/model the truth to loosely coupled app/services and underlying platforms.
-    1) Infra as code managing dependencies among multiple versioned services and platform, also all app/services'
+1) Domain Driven Design to abstract/model the truth from SDLC operational tasks into a platforms.
+    1) Infra as code managing dependencies among multiple versioned services and the platform, also all app/services' SDLC
        lifecycle.
     2) Code generated repeatable & REPLACEABLE & interchangeable environments.
         1) IMMUTABLE for tagging
@@ -59,8 +59,7 @@ services can depend on each other for various reasons, this brings up the proble
     2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
     3) Configurable manual verification/approval based on IAM
 
-### How it works
-1) 
+## How it works
     
 ### High level Abstraction of branch/tag as environment dependency DAG:
 
