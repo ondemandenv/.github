@@ -70,7 +70,7 @@ for others to consume
 
 ### Concrete branch/tag as environment dependency DAG:
 
-[Interactive GUI of contracts](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html)
+[Odmd Viz GUI of contracts](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html)
 
 When selecting node, we can see the stack id and the stack parameter and outputs
 ![img_1.png](img_1.png)
