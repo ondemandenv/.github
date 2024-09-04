@@ -1,4 +1,4 @@
-http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html#open
+http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html#sampleSpringOpenAPI3img,sampleSpringOpenAPI3cdk
 
 Single repo https://github.com/ondemandenv/spring-boot-swagger-3-example
 
