@@ -84,8 +84,7 @@ based on The Contracts Lib and app/service's repo's tag/branch structure:
 
 The following is a symbolic diagram to show how an app/service consuming endpoints from others, also provides endpoints
 for others to consume
-![img_1.png](img_1.png)
 The real world contracts are complex,
 see more [ real example of a contracts](https://github.com/ondemandenv/odmd-build-contracts).
 
-[Interactive GUI of contracts:](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html#vpc_eks)
+[Interactive GUI of contracts:](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/#networking,eks,OdmdBuildDefaultVpcRds,DefaultKubeEks,spring-rds-img,spring-rds-cdk)
