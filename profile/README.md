@@ -103,10 +103,14 @@ After setup of above, we define
    email notification
 
 ## Examples:
-https://github.com/ondemandenv as github organization has one [Contract Lib](https://github.com/ondemandenv/odmd-build-contracts) containing two app/services
+https://github.com/ondemandenv as github organization has one [Contract Lib](https://github.com/ondemandenv/odmd-build-contracts) containing 3 domains of app/services:
+
+![img_2.png](img_2.png)
 
 
 ### [Springboot deploy to EKS cross VPCs in different accounts](example-springboot-vpc-eks.md)
+
+### [Springboot OpenAPI Running in ECS ](example-springboot-vpc-eks.md)
 
 ### [Serverless Step functions need no VPC at all](example-serverless-sfn.md)
 
