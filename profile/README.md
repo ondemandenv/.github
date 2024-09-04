@@ -35,8 +35,8 @@ services can depend on each other for various reasons, this brings up the proble
 
 ## Philosophy & Goals
 
-1) Domain Driven Design to abstract/model the truth from SDLC operational tasks into a platforms.
-    1) Infra as code managing dependencies among multiple versioned services and the platform, also all app/services' SDLC
+1) Domain Driven Design to abstract/model the truth from SDLC operational tasks into a platform which:
+    1) Managing dependencies among multiple versioned app/services and the platform, also all app/services' SDLC
        lifecycle.
     2) Code generated repeatable & REPLACEABLE & interchangeable environments.
         1) IMMUTABLE for tagging
