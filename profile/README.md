@@ -59,8 +59,13 @@ services can depend on each other for various reasons, this brings up the proble
     2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
     3) Configurable manual verification/approval based on IAM
 
-### How it works
-1) 
+### High level abstraction of how the platform works:
+1) Contracts Lib where define the contracts among services and odmd central
+2) Odmd central is the platform creating interpreting contracts and create all contexts for app/services
+3) odmd-ctl resources as context for each app service
+4) app/services are deployed from source repo into multiple environments.
+
+![img_4.png](img_4.png)
     
 ### High level Abstraction of branch/tag as environment dependency DAG:
 
@@ -75,7 +80,13 @@ for others to consume
 When selecting node, we can see the stack id and the stack parameter and outputs
 ![img_1.png](img_1.png)
 
-### Setup -- Customer has total control of all:
+### AWS implementation Setup
+
+1) Contracts Lib: https://github.com/ondemandenv/odmd-build-contracts
+2) Odmd central: https://github.com/ondemandenv/ONDEMAND_CENTRAL_REPO
+3) Odmd-ctl parts of Odmd central.
+4) app/services are deployed from source repo into multiple environments across different aws accounts. 
+
 
 ![img_3.png](img_3.png)
 
