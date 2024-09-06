@@ -88,7 +88,7 @@ When selecting node, we can see the stack id and the stack parameter and outputs
 3) Odmd-ctl parts of Odmd central.
 4) app/services are deployed from source repo into multiple environments across different aws accounts. 
 
-![img_3.png](img_3.png)
+![img_5.png](img_5.png)
 
 1) Above basic set up is good enough to test serverless applications and it is nearly free, less than 2 US dollars a day
    for my debugging.
