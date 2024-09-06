@@ -75,6 +75,7 @@ for others to consume
 
 ### Concrete branch/tag as environment dependency DAG:
 
+This is a running POC web app to visualize how each environments are created and how they contract each other by producing/consuming each other( red stars )
 [Odmd Viz GUI of contracts](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html)
 
 When selecting node, we can see the stack id and the stack parameter and outputs
@@ -86,7 +87,6 @@ When selecting node, we can see the stack id and the stack parameter and outputs
 2) Odmd central: https://github.com/ondemandenv/ONDEMAND_CENTRAL_REPO
 3) Odmd-ctl parts of Odmd central.
 4) app/services are deployed from source repo into multiple environments across different aws accounts. 
-
 
 ![img_3.png](img_3.png)
 
