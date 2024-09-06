@@ -114,7 +114,7 @@ After setup of above, we define
    email notification
 
 ## Examples:
-https://github.com/ondemandenv as github organization has one [Contract Lib](https://github.com/ondemandenv/odmd-build-contracts) containing 3 domains of app/services:
+https://github.com/ondemandenv as Github organization has [Contracts Lib](https://github.com/ondemandenv/odmd-build-contracts) containing 3 domains of app/services:
 
 ![img_2.png](img_2.png)
 
@@ -125,3 +125,5 @@ https://github.com/ondemandenv as github organization has one [Contract Lib](htt
 
 ### [Serverless Step functions need no VPC at all](example-serverless-sfn.md)
 
+deployed into 4 AWS accounts:
+![img_6.png](img_6.png)
