@@ -1,5 +1,8 @@
+# Creating Github App for Github Organization
 
+Creating Github App needs 1) register Github App; 2) Integrate with ODMD central account
 
+### Register App Navigate thru organization's developer settings:
 ![img_7.png](img_7.png)
 
 Give it 
@@ -12,7 +15,7 @@ Generate a private key, keep the file secret for later
 
 ![img_8.png](img_8.png)
 
-If only used for same organization:
+Used for same organization in this case/scope
 ![img_11.png](img_11.png)
 
 repo permissions:
@@ -26,3 +29,8 @@ Subscribe to events:
 
 Click on "Public page" to install App
 ![img_12.png](img_12.png)
+
+Get the installationID and keep it
+![img_13.png](img_13.png)
+
+### Integrate with ODMD central account TBD
