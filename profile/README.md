@@ -107,7 +107,7 @@ After setup of above, we define
 
 3) Define your SOA as code in Contracts Lib:
     1) Created Aws Accounts and Github repos
-    2) Github App installation ID
+    2) Github App [create-install-github-app.md](create-install-github-app.md) installation ID
     3) Emails for each app/service
 4) Deploy the seeding stack into your central auto account, wait central auto initialize and deploy all app/services
    with
