@@ -60,13 +60,14 @@ services can depend on each other for various reasons, this brings up the proble
     3) Configurable manual verification/approval based on IAM
 
 ### High level abstraction of how the platform works:
+
 1) Contracts Lib where define the contracts among services and odmd central
 2) Odmd central is the platform creating interpreting contracts and create all contexts for app/services
 3) odmd-ctl resources as context for each app service
 4) app/services are deployed from source repo into multiple environments.
 
 ![img_4.png](img_4.png)
-    
+
 ### High level Abstraction of branch/tag as environment dependency DAG:
 
 The following is a symbolic diagram to show how an app/service consuming endpoints from others, also provides endpoints
@@ -75,7 +76,8 @@ for others to consume
 
 ### Concrete branch/tag as environment dependency DAG:
 
-This is a running POC web app to visualize how each environments are created and how they contract each other by producing/consuming each other( red stars )
+This is a running POC web app to visualize how each environments are created and how they contract each other by
+producing/consuming each other( red stars )
 [Odmd Viz GUI of contracts](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html)
 
 When selecting node, we can see the stack id and the stack parameter and outputs
@@ -86,7 +88,7 @@ When selecting node, we can see the stack id and the stack parameter and outputs
 1) Contracts Lib: https://github.com/ondemandenv/odmd-build-contracts
 2) Odmd central: https://github.com/ondemandenv/ONDEMAND_CENTRAL_REPO
 3) Odmd-ctl parts of Odmd central.
-4) app/services are deployed from source repo into multiple environments across different aws accounts. 
+4) app/services are deployed from source repo into multiple environments across different aws accounts.
 
 ![img_5.png](img_5.png)
 
@@ -108,16 +110,31 @@ After setup of above, we define
 3) Define your SOA as code in Contracts Lib:
     1) Created Aws Accounts and Github repos
     2) Github App [create-install-github-app.md](create-install-github-app.md) installation ID
-    3) Emails for each app/service
-4) Deploy the seeding stack into your central auto account, wait central auto initialize and deploy all app/services
-   with
-   email notification
+    3) Define contracts by extending class
+   ```
+    export declare abstract class OndemandContracts<A extends AccountsCentralView, G extends GithubReposCentralView, C extends OdmdBuildOdmdContracts<A, G>> extends Construct implements OdmdContractsCentralView<A, G, C> {`
+   ```
+   filling in AWS accounts, repo org/name, and Github App installationID: [create-contracts-lib.md](create-contracts-lib.md) and builds/environments
+   4) Publish Contracts Lib to org's package, manually make the 
+4) Deploy the seeding stack into your central auto account
+   1) ask odmd admin to create SQS(odmd-root-branch-per-central) for central-artifact stack
+   2) create secret with name:   ghAppPrivateKeySecretName defined in code, paste Github App's private key in
+      ```public static readonly ghAppPrivateKeySecretName = 'ghAppPrivateKeySecretName'```
+   3) deploy central-artifact stack provided by odmd admin
+   3) pass to odmd amind
+      1) s3 bucket name
+      2) user credentials 
+      2) contracts lib pkg token
+   3) Wait central auto initialize and deploy all app/services
+      with
+      email notification
 
 ## Examples:
-https://github.com/ondemandenv as Github organization has [Contracts Lib](https://github.com/ondemandenv/odmd-build-contracts) containing 3 domains of app/services:
+
+https://github.com/ondemandenv as Github organization
+has [Contracts Lib](https://github.com/ondemandenv/odmd-build-contracts) containing 3 domains of app/services:
 
 ![img_2.png](img_2.png)
-
 
 ### [Springboot deploy to EKS cross VPCs in different accounts](example-springboot-vpc-eks.md)
 
