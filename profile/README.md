@@ -109,13 +109,13 @@ After setup of above, we define
 
 3) Define your SOA as code in Contracts Lib:
     1) Created Aws Accounts and Github repos
-    2) Github App [create-install-github-app.md](create-install-github-app.md) installation ID
+    2) Github App [create-install-github-app.md](create-install-github-app.md) applicationID and installation ID
     3) Define contracts by extending class
    ```
     export declare abstract class OndemandContracts<A extends AccountsCentralView, G extends GithubReposCentralView, C extends OdmdBuildOdmdContracts<A, G>> extends Construct implements OdmdContractsCentralView<A, G, C> {`
    ```
    filling in AWS accounts, repo org/name, and Github App installationID: [create-contracts-lib.md](create-contracts-lib.md) and builds/environments
-   4) Publish Contracts Lib to org's package, manually make the 
+   4) Publish Contracts Lib to org's package, manually for now, and a token for reading this package 
 4) Deploy the seeding stack into your central auto account
    1) ask odmd admin to create SQS(odmd-root-branch-per-central) for central-artifact stack
    2) create secret with name:   ghAppPrivateKeySecretName defined in code, paste Github App's private key in
@@ -124,7 +124,7 @@ After setup of above, we define
    3) pass to odmd amind
       1) s3 bucket name
       2) user credentials 
-      2) contracts lib pkg token
+      2) contracts lib pkg read only token
    3) Wait central auto initialize and deploy all app/services
       with
       email notification
@@ -144,3 +144,8 @@ has [Contracts Lib](https://github.com/ondemandenv/odmd-build-contracts) contain
 
 deployed into 4 AWS accounts:
 ![img_6.png](img_6.png)
+
+
+SAAS:
+
+![img_15.png](img_15.png)

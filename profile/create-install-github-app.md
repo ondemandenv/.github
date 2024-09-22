@@ -27,7 +27,8 @@ No Account permissions needed
 Subscribe to events:
 ![img_10.png](img_10.png)
 
-Click on "Public page" to install App
+Click on "Public page" to install App, remember its App ID
+
 ![img_12.png](img_12.png)
 
 Get the installationID and keep it
