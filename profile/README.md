@@ -78,7 +78,7 @@ for others to consume
 
 This is a running POC web app to visualize how each environments are created and how they contract each other by
 producing/consuming each other( red stars )
-[Odmd Viz GUI of contracts](http://vizuistack-bucket43879c71-hlpginonw2aa.s3-website-us-west-1.amazonaws.com/index.html)
+[Odmd Vis GUI of contracts](http://visneodata-main-bucket43879c71-ez8cjyzhyzaj.s3-website-us-west-1.amazonaws.com/)
 
 When selecting node, we can see the stack id and the stack parameter and outputs
 ![img_1.png](img_1.png)
