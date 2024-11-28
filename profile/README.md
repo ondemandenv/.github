@@ -1,5 +1,22 @@
 ## Challenges & Motivation
 
+In today’s distributed systems, the challenge isn't technology - it's actually maintaining clear boundaries and enabling rapid innovation. I’m building the platform that revolutionizes service-oriented architecture by starting with contracts first, creating focused spaces for both engineers and AI agents to work effectively.
+
+I’ve developed a powerful platform that transforms how teams build and manage distributed systems.
+The platform enables developers to instantly create isolated environments for any service with all infrastructure and dependencies.
+
+What sets this apart is my contract-first approach:
+services define clear boundaries and interfaces upfront, which the platform uses to manage environments and dependencies automatically.
+
+I have a working prototype with the key capabilities like:
+Instant environment provisioning based on service contracts
+Automated dependency and configuration management
+Full isolation between environments for safe experimentation and testing
+Because each service's context and boundaries are clearly defined, both engineers and AI agents can work more effectively within the bounded contexts.
+I’m working on context-aware AI agents that understand service boundaries and contracts. I need partners to take over non tech parts of the business and more engineers to perfect the platform.
+
+
+
 Distributed systems like SOA/microservice are very difficult to develop, each service can take many parts to work,
 services can depend on each other for various reasons, this brings up the problems:
 
@@ -78,7 +95,7 @@ for others to consume
 
 This is a running POC web app to visualize how each environments are created and how they contract each other by
 producing/consuming each other( red stars )
-[Odmd Vis GUI of contracts](http://visneodata-main-bucket43879c71-ez8cjyzhyzaj.s3-website-us-west-1.amazonaws.com/)
+[Odmd Vis GUI of contracts](https://web.root.ondemandenv.link/)
 
 When selecting node, we can see the stack id and the stack parameter and outputs
 ![img_1.png](img_1.png)
