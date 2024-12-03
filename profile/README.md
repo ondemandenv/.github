@@ -16,6 +16,11 @@ Because each service's context and boundaries are clearly defined, both engineer
 I’m working on context-aware AI agents that understand service boundaries and contracts. I need partners to take over non tech parts of the business and more engineers to perfect the platform.
 
 
+It's focused on minimize the unnecessary complexity by providing observability of the architecture,  boundary and contracts among apps/services
+    
+It's focused on ultimate flexibility by describing boundary and contracts with strong typed code
+
+
 
 Distributed systems like SOA/microservice are very difficult to develop, each service can take many parts to work,
 services can depend on each other for various reasons, this brings up the problems:
@@ -102,7 +107,7 @@ When selecting node, we can see the stack id and the stack parameter and outputs
 
 ### AWS implementation Setup
 
-1) Contracts Lib: https://github.com/ondemandenv/odmd-build-contracts
+1) Contracts Lib: https://github.com/ondemandenv/odmd-contracts-sandbox
 2) Odmd central: https://github.com/ondemandenv/ONDEMAND_CENTRAL_REPO
 3) Odmd-ctl parts of Odmd central.
 4) app/services are deployed from source repo into multiple environments across different aws accounts.
@@ -135,13 +140,12 @@ After setup of above, we define
    installationID: [create-contracts-lib.md](create-contracts-lib.md) and builds/environments
     4) Publish Contracts Lib to org's package, manually for now, and a token for reading this package
 4) Deploy the seeding stack into your central auto account
-    1) ask odmd admin to create SQS(odmd-root-branch-per-central) for central-artifact stack
-    2) create secret with name:   ghAppPrivateKeySecretName defined in code, paste Github App's private key in
+    1) ask [odmd admin](https://www.linkedin.com/in/garyy2011/) to create SQS( odmd-root-branch-per-central) for central-artifact stack
+    2) create secret with name: ghAppPrivateKeySecretName, paste Github App's private key in
        ```public static readonly ghAppPrivateKeySecretName = 'ghAppPrivateKeySecretName'```
     3) deploy central-artifact stack provided by odmd admin
-    3) pass to odmd amind
+    3) pass to [odmd admin](https://www.linkedin.com/in/garyy2011/)
         1) s3 bucket name
-        2) user credentials
         2) contracts lib pkg read only token
     3) Wait central auto initialize and deploy all app/services
        with
@@ -150,7 +154,7 @@ After setup of above, we define
 ## Examples:
 
 https://github.com/ondemandenv as Github organization
-has [Contracts Lib](https://github.com/ondemandenv/odmd-build-contracts) containing 3 domains of app/services:
+has [Contracts Lib](https://github.com/ondemandenv/odmd-contracts-sandbox) containing 3 domains of app/services:
 
 ![img_2.png](img_2.png)
 
