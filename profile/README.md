@@ -149,12 +149,10 @@ After setup of above, we define
        with
        email notification
 
-## Examples:
+## Example details:
 
 https://github.com/ondemandenv as Github organization
 has [Contracts Lib](https://github.com/ondemandenv/odmd-contracts-sandbox) containing 3 domains of app/services:
-
-![img_2.png](img_2.png)
 
 ### [Springboot deploy to EKS cross VPCs in different accounts](example-springboot-vpc-eks.md)
 
