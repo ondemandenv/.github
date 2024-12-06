@@ -3,7 +3,7 @@
    1) app/service[deployment] providing and consuming APIs by endpoints/topics.
    2) artifacts are container image or packages to be deployed as part of a service.
    3) service and artifacts both can have multiple versions/environments
-   4) see https://github.com/ondemandenv/odmd-build-contracts for more example/details.
+   4) see https://github.com/ondemandenv/odmd-contracts-sandbox for more example/details.
 2) Abstract contracting/interface/boundary of each service, define them in static and strong typed code so that:
    1) Better IDE support.
    2) Validate as early as compilation.
