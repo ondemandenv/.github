@@ -1,18 +1,18 @@
-## Challenges & Motivation
+## Abstraction
 
 In today’s distributed systems, the challenge isn't technology - it's actually maintaining clear boundaries and enabling
-rapid innovation. I’m building the platform that revolutionizes service-oriented architecture by starting with contracts
+rapid innovation. Ondemandenv the platform that revolutionizes service-oriented architecture by starting with contracts
 first, creating focused spaces for both engineers and AI agents to work effectively.
 
-I’ve developed a powerful platform that transforms how teams build and manage distributed systems.
-The platform enables developers to instantly create isolated environments for any service with all infrastructure and
+Ondemandenv is a powerful platform that transforms how teams build and manage distributed systems.
+The platform enables developers to instantly create isolated environments with all infrastructure and
 dependencies.
 
 What sets this apart is my contract-first approach:
 services define clear boundaries and interfaces upfront, which the platform uses to manage environments and dependencies
 automatically.
 
-I have a working prototype with the key capabilities like:
+This Github Organization with multiple repos is a working example with the key capabilities like:
 Instant environment provisioning based on service contracts
 Automated dependency and configuration management
 Full isolation between environments for safe experimentation and testing
@@ -21,10 +21,12 @@ effectively within the bounded contexts.
 I’m working on context-aware AI agents that understand service boundaries and contracts. I need partners to take over
 non tech parts of the business and more engineers to perfect the platform.
 
-It's focused on minimize the unnecessary complexity by providing observability of the architecture, boundary and
+Ondemandenv focuses on 
+1) minimize the unnecessary complexity by providing observability of the architecture, boundary and
 contracts among apps/services
+2) ultimate flexibility by describing boundary and contracts with strong typed code.
 
-It's focused on ultimate flexibility by describing boundary and contracts with strong typed code
+## Challenges & Motivation
 
 Distributed systems like SOA/microservice are very difficult to develop, each service can take many parts to work,
 services can depend on each other for various reasons, this brings up the problems:
