@@ -112,7 +112,7 @@ When selecting node, we can see the stack id and the stack parameter and outputs
 ### AWS implementation Setup usage example:
 
 1) Contracts Lib: https://github.com/ondemandenv/odmd-contracts-sandbox
-2) app/services repos: https://github.com/ondemandenv/odmd-contracts-sandbox
+2) app/services repos: https://github.com/ondemandenv/
 
 ![img_5.png](img_5.png)
 
