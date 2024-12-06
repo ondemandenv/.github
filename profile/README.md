@@ -1,26 +1,30 @@
 ## Challenges & Motivation
 
-In today’s distributed systems, the challenge isn't technology - it's actually maintaining clear boundaries and enabling rapid innovation. I’m building the platform that revolutionizes service-oriented architecture by starting with contracts first, creating focused spaces for both engineers and AI agents to work effectively.
+In today’s distributed systems, the challenge isn't technology - it's actually maintaining clear boundaries and enabling
+rapid innovation. I’m building the platform that revolutionizes service-oriented architecture by starting with contracts
+first, creating focused spaces for both engineers and AI agents to work effectively.
 
 I’ve developed a powerful platform that transforms how teams build and manage distributed systems.
-The platform enables developers to instantly create isolated environments for any service with all infrastructure and dependencies.
+The platform enables developers to instantly create isolated environments for any service with all infrastructure and
+dependencies.
 
 What sets this apart is my contract-first approach:
-services define clear boundaries and interfaces upfront, which the platform uses to manage environments and dependencies automatically.
+services define clear boundaries and interfaces upfront, which the platform uses to manage environments and dependencies
+automatically.
 
 I have a working prototype with the key capabilities like:
 Instant environment provisioning based on service contracts
 Automated dependency and configuration management
 Full isolation between environments for safe experimentation and testing
-Because each service's context and boundaries are clearly defined, both engineers and AI agents can work more effectively within the bounded contexts.
-I’m working on context-aware AI agents that understand service boundaries and contracts. I need partners to take over non tech parts of the business and more engineers to perfect the platform.
+Because each service's context and boundaries are clearly defined, both engineers and AI agents can work more
+effectively within the bounded contexts.
+I’m working on context-aware AI agents that understand service boundaries and contracts. I need partners to take over
+non tech parts of the business and more engineers to perfect the platform.
 
+It's focused on minimize the unnecessary complexity by providing observability of the architecture, boundary and
+contracts among apps/services
 
-It's focused on minimize the unnecessary complexity by providing observability of the architecture,  boundary and contracts among apps/services
-    
 It's focused on ultimate flexibility by describing boundary and contracts with strong typed code
-
-
 
 Distributed systems like SOA/microservice are very difficult to develop, each service can take many parts to work,
 services can depend on each other for various reasons, this brings up the problems:
@@ -134,11 +138,13 @@ After setup of above, we define
    ```
     export declare abstract class OndemandContracts<A extends AccountsCentralView, G extends GithubReposCentralView, C extends OdmdBuildOdmdContracts<A, G>> extends Construct implements OdmdContractsCentralView<A, G, C> {`
    ```
-   filling in AWS accounts, repo org/name, and Github App
+   filling in AWS accounts, repo org/name, and Github
+   App, [example](https://github.com/ondemandenv/odmd-contracts-sandbox/blob/cbc965f1a6f63d87cc9c2971320a71362783341a/lib/OndemandContractsSandbox.ts#L33)
    installationID: [create-contracts-lib.md](create-contracts-lib.md) and builds/environments
     4) Publish Contracts Lib to org's package, manually for now, and a token for reading this package
 4) Deploy the seeding stack into your central auto account
-    1) ask [odmd admin](https://www.linkedin.com/in/garyy2011/) to create SQS( odmd-root-branch-per-central) for central-artifact stack
+    1) ask [odmd admin](https://www.linkedin.com/in/garyy2011/) to create SQS( odmd-root-branch-per-central) for
+       central-artifact stack
     2) create secret with name: ghAppPrivateKeySecretName, paste Github App's private key in
        ```public static readonly ghAppPrivateKeySecretName = 'ghAppPrivateKeySecretName'```
     3) deploy central-artifact stack provided by odmd admin
