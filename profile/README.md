@@ -1,176 +1,46 @@
-## Abstraction
+# ondemandenv Organization
 
-In today’s distributed systems, the challenge isn't technology - it's actually maintaining clear boundaries and enabling
-rapid innovation. Ondemandenv the platform that revolutionizes service-oriented architecture by starting with contracts
-first, creating focused spaces for both engineers and AI agents to work effectively.
+**Platform for On-Demand Environments and Service Contract Management in Distributed Systems**
 
-Ondemandenv is a powerful platform that transforms how teams build and manage distributed systems.
-The platform enables developers to instantly create isolated environments with all infrastructure and
-dependencies.
+Welcome to the `ondemandenv` organization! This organization showcases the practical application of the ondemandenv platform, a solution designed to revolutionize the Software Development Life Cycle (SDLC) for Service-Oriented Architectures (SOA) and microservices.
 
-What sets this apart is my contract-first approach:
-services define clear boundaries and interfaces upfront, which the platform uses to manage environments and dependencies
-automatically.
+ondemandenv addresses the complexities of modern distributed systems by providing a platform for:
 
-This Github Organization with multiple repos is a working example with the key capabilities like:
-Instant environment provisioning based on service contracts
-Automated dependency and configuration management
-Full isolation between environments for safe experimentation and testing
-Because each service's context and boundaries are clearly defined, both engineers and AI agents can work more
-effectively within the bounded contexts.
-I’m working on context-aware AI agents that understand service boundaries and contracts. I need partners to take over
-non tech parts of the business and more engineers to perfect the platform.
+*   **Streamlining Service Dependencies:**  Clearly define and manage dependencies between microservices and components.
+*   **Enhancing Team Collaboration:** Facilitate collaboration through code-defined service contracts and on-demand environments.
+*   **Accelerating Development Cycles:** Enable rapid experimentation and testing with isolated, cloned environments.
+*   **Ensuring Consistency and Predictability:**  Promote predictable service behavior through contract-based interactions and versioned configurations.
 
-Ondemandenv focuses on 
-1) minimize the unnecessary complexity by providing observability of the architecture, boundary and
-contracts among apps/services
-2) ultimate flexibility by describing boundary and contracts with strong typed code.
+## odmd-contracts-sandbox: Your Contracts Library Example
 
-## Challenges & Motivation
+The `odmd-contracts-sandbox` repository serves as a concrete example of a **ContractsLib** within the ondemandenv ecosystem.  ContractsLib is a central component where you define the architecture of your application as code. Think of it as the "congress" of your services, where teams negotiate and agree upon how services interact.
 
-Distributed systems like SOA/microservice are very difficult to develop, each service can take many parts to work,
-services can depend on each other for various reasons, this brings up the problems:
+**Key Role of `odmd-contracts-sandbox`:**
 
-1) Maintain the consistency/certainty inbetween parts of each service is difficult.
-    1) Missing assets/image/config
-    2) Using wrong configuration version from
-        1) code repo
-        2) secret store
-        3) configuration store
-    3) Auth and least privilige V.S. convenience.
-2) Maintain the consistency/certainty inbetween services is even more difficult.
-    1) beside configuration, service API changing
-    2) messaging schema changing
-    3) versioning of each service
-    4) monitoring and alarming
-3) Manual configuration already reached to limit
-    1) Can't remember what/how/why/where/when, can easily be hijacked
-        1) who/how/why created that repo?
-        2) what/how/where/when is the repo deployed last time?
-        3) how other services are using/depending on the repo?
-    2) Human mistake is inevitable and taking significant effort
-        1) one typo can easily take hours for a complex system
-        2) too difficult to track every change.
-4) Local optimization vs big picture
-5) Short term gaining vs long term stratigey
-6) GitOps can't handle the complexity, templating yamls are the new binary in cloud era.
-    1) Too shallow and rigid to adapt change, simple change can require huge unpractical amount of change of yamls.
-    2) Can require multiple commits and multiple deployments across multiple repos for a single change.
-    3) Too many repeats in yamls across many files and repos, complexity grows exponentially.
-    4) Certain files can easily reach thousands of lines, making it not scalable/sustainable
-7) Authentication & Authorization for each service making things difficult.
-8) When using AWS CDK code as shell scripts without proper architecting & framework, it stuck ...
+*   **Defines Builds and Envers:** This repository outlines all the **Builds** (deployable units of code) and **Envers** (Environment Versions - logical deployment environments) for services within the `ondemandenv` organization.
+*   **Service Contract Definition:** It codifies the contracts between different services, specifying what products each enver produces and what it consumes from others.
+*   **Example Implementations:**  `odmd-contracts-sandbox` demonstrates how to extend built-in build types and define custom envers. For instance, it includes:
+    *   **User Auth Build:**  Extending the base `user-auth` build with the `user-pool` repository to define user authentication services.
+    *   **EKS Cluster Build:**  Extending the `eks-cluster` build with the `odmd-eks` repository to manage and deploy Kubernetes clusters.
 
-## Philosophy & Goals
+**Core Concepts in Action (as exemplified in `odmd-contracts-sandbox`):**
 
-1) Domain Driven Design to abstract/model the truth from SDLC operational tasks into a platform which:
-    1) Managing dependencies among multiple versioned app/services and the platform, also all app/services' SDLC
-       lifecycle.
-    2) Code generated repeatable & REPLACEABLE & interchangeable environments.
-        1) IMMUTABLE for tagging
-        2) Incremental for branching
-2) Application architecture as actual code to describe services' relationship.
-    1) Abstract contracting/interface/boundary of each service, define relationship among in code.
-    2) Each service implements its contracting/interface/boundary, generate its deployment manifests/plans.
-    3) Monitoring deployments of each environment/version of each service
-3) For a distributed systems like SOA/microservice, each service deploys to multiple environment/versions, so that
-    1) developers can compare different versions of code/config by comparing different deployed actual running
-       environments.
-    2) developers can experiment discover and learn.
-    3) multiple environments to run more tests in different scenarios in parallel.
-4) On demand environment, ultimate flexibility for developers.
-    1) By git branching/tagging which event driving automation to create/destroy new version of code/environment.
-    2) Monitor/alarm environments' dependency versioning
-    3) Environment lifecycle/status sync with github workflow statuses.
-5) Monitoring and simulation:
-    1) Dynamically generating DAG of dependency
-    2) Dynamically generating deployment plans(phase/stages) based on DAG of dependency
-    3) Configurable manual verification/approval based on IAM
+*   **Enver (Environment Version):**  Explore how `odmd-contracts-sandbox` defines various envers, each representing a distinct version of an environment for different services.
+*   **Build:**  See the definitions of different build types and how they are configured to produce Docker images, CDK deployments, and other resources.
+*   **ContractsLib:** Understand how `odmd-contracts-sandbox` itself acts as the ContractsLib, defining service dependencies and interactions as code.
+*   **Products:** Observe how envers in `odmd-contracts-sandbox` are designed to produce and consume versioned configuration values (Products) for inter-service communication.
+*   **On-Demand Environments:**  Imagine how, using this ContractsLib, developers can easily clone envers to create isolated environments for testing and development, reusing dependency configurations.
 
-### High level abstraction of how the platform works:
+**Benefits of Exploring `odmd-contracts-sandbox`:**
 
-1) Contracts Lib where define the contracts among services and odmd central
-2) Odmd central is the platform creating interpreting contracts and create all contexts for app/services
-3) odmd-ctl resources as context for each app service
-4) app/services are deployed from source repo into multiple environments.
+*   **Practical Example:**  Provides a working example of how to structure your own ContractsLib and define services within ondemandenv.
+*   **Architecture as Code:** Showcases the "app architecture as code" principle, where your system's architecture is explicitly defined and versioned in code.
+*   **Understanding Service Contracts:** Illustrates how teams can negotiate and define service contracts through code and Pull Requests, fostering collaboration and clarity.
 
-![img_4.png](img_4.png)
+**Get Started:**
 
-### High level Abstraction of branch/tag as environment dependency DAG:
+Dive into the `odmd-contracts-sandbox` repository to explore the concrete examples of build and enver definitions. Examine the code, understand the service contracts, and see how ondemandenv can help you manage your distributed system SDLC.
 
-The following is a symbolic diagram to show how an app/service consuming endpoints from others, also provides endpoints
-for others to consume
-![img_1.png](img.png)
+[Understand How OndemandENV work ](https://github.com/ondemandenv/INTRO.MD)
 
-### Concrete branch/tag as environment dependency DAG:
-
-This is a web console to visualize how each environment are created and how they contract each other by
-producing/consuming each other
-[Odmd Vis GUI of contracts](https://web.root.ondemandenv.link/)
-
-When selecting node, we can see the stack id and the stack parameter and outputs, the setup are described below:
-![img_15.png](img_15.png)
-
-### AWS implementation Setup usage example:
-
-1) Contracts Lib: https://github.com/ondemandenv/odmd-contracts-sandbox
-2) app/services repos: https://github.com/ondemandenv/
-
-![img_5.png](img_5.png)
-
-1) Above basic set up is good enough to test serverless applications and it is nearly free, less than 2 US dollars a day
-   for my debugging.
-    2) github app is free for 2000 mins,
-    3) AWS is serverless cost is by usage.
-2) when setting up Network for VPC across Accounts:
-    1) Ipam will cost one US dollar plus traffic.
-    2) NAT will cost one US dollar plus traffic.
-    3) Transit Gateway will cost one US dollar plus traffic.
-4) when setting up eks cluster
-    1) eks will have a cost as service
-    2) eks instance will cost
-    3) Related KMS will cost by usage
-
-After setup of above, we define
-
-3) Define your SOA as code in Contracts Lib:
-    1) Created Aws Accounts and Github repos
-    2) Github App [create-install-github-app.md](create-install-github-app.md) applicationID and installation ID
-    3) Define contracts by extending class
-   ```
-    export declare abstract class OndemandContracts<A extends AccountsCentralView, G extends GithubReposCentralView, C extends OdmdBuildOdmdContracts<A, G>> extends Construct implements OdmdContractsCentralView<A, G, C> {`
-   ```
-   filling in AWS accounts, repo org/name, and Github
-   App, [example](https://github.com/ondemandenv/odmd-contracts-sandbox/blob/cbc965f1a6f63d87cc9c2971320a71362783341a/lib/OndemandContractsSandbox.ts#L33)
-   installationID: [create-contracts-lib.md](create-contracts-lib.md) and builds/environments
-    4) Publish Contracts Lib to org's package, manually for now, and a token for reading this package
-4) Deploy the seeding stack into your central auto account
-    1) ask [odmd admin](https://www.linkedin.com/in/garyy2011/) to create SQS( odmd-root-branch-per-central) for
-       central-artifact stack
-    2) create secret with name: ghAppPrivateKeySecretName, paste Github App's private key in
-       ```public static readonly ghAppPrivateKeySecretName = 'ghAppPrivateKeySecretName'```
-    3) deploy central-artifact stack provided by odmd admin
-    3) pass to [odmd admin](https://www.linkedin.com/in/garyy2011/)
-        1) s3 bucket name
-        2) contracts lib pkg read only token
-    3) Wait central auto initialize and deploy all app/services
-       with
-       email notification
-
-## Example details:
-
-https://github.com/ondemandenv as Github organization
-has [Contracts Lib](https://github.com/ondemandenv/odmd-contracts-sandbox) containing 3 domains of app/services:
-
-### [Springboot deploy to EKS cross VPCs in different accounts](example-springboot-vpc-eks.md)
-
-### [Springboot OpenAPI Running in ECS ](example-springboot-vpc-eks.md)
-
-### [Serverless Step functions need no VPC at all](example-serverless-sfn.md)
-
-deployed into 4 AWS accounts:
-![img_6.png](img_6.png)
-
-working on SAAS for multiple domains:
-
-![img_16.png](img_16.png)
+[Explore the odmd-contracts-sandbox repository!](https://github.com/ondemandenv/)
