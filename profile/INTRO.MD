@@ -1,171 +1,128 @@
-Ondemandenv Platform: SOA Distributed System SDLC Management
-1. Overview
-   A platform designed to manage the lifecycle of Service-Oriented Architecture (SOA) distributed systems, focusing on microservice dependencies, team collaboration, and environment-as-code workflows. Key objectives include:
+(Due to technical issues, the search service is temporarily unavailable.)
 
-Dependency Management: Define and enforce contracts between services/environments.
+**OnDemandEnv Platform Documentation**
 
-Environment Isolation: Enable on-demand, mutable/immutable environments ("envers") with secure isolation.
+---
 
-Automated Deployment: Deploy resources across AWS accounts using deterministic CDK/CloudFormation.
+**1. Overview**  
+The OnDemandEnv platform streamlines SOA distributed system SDLC by managing microservice dependencies, team collaboration, and environment orchestration. It enables dynamic environment ("enver") provisioning, dependency resolution, and cross-account deployments using AWS services, Git workflows, and infrastructure-as-code (IaC) principles.
 
-Consistency: Ensure logic/functionality consistency across cloned environments while avoiding resource conflicts.
+---
 
-2. Core Components
-   2.1 Enver (Environment Version)
-   Definition: A logical unit representing a versioned environment, including infrastructure, containers, and configurations.
+**2. Core Concepts**
+- **Enver (Environment Version):**
+   - A versioned logical environment containing resources (infrastructure, services, configs) for a business vertical.
+   - Types:
+      - **Mutable Enver:** Associated with Git branches; supports incremental deployments as source changes.
+      - **Immutable Enver:** Associated with Git tags; dependencies must also be immutable.
+   - Outputs: Docker images, CDK deployments, or custom resources (e.g., URIs, endpoints).
 
-Types:
+- **Build:**
+   - Defines how a repository is built (e.g., Docker image, CDK stack).
+   - Each build targets a deployment account/region and can produce multiple envers.
 
-Mutable Enver: Associated with a branch in source repos; supports incremental deployments as code changes.
+- **Products:**
+   - Versioned outputs (e.g., IPAM references, EKS endpoints) stored in SSM Parameter Store.
+   - Consumers dynamically resolve dependencies using deterministic URIs.
 
-Immutable Enver: Associated with a tag; dependencies must also be immutable.
+- **ContractsLib:**
+   - A centralized repository defining dependencies and contracts between envers.
+   - Acts as a "congress" where teams negotiate dependencies via PRs.
+   - Enforces semantic versioning and type safety (TypeScript interfaces).
 
-Outputs:
+---
 
-Docker image URI/SHA.
+**3. Platform Architecture**
+- **Accounts:**
+   - **Central Account:** Hosts platform control plane (CI/CD pipelines, ContractsLib, AppSync API, Config Store).
+   - **Networking Account:** Manages shared networking resources (IPAM, VPCs, Transit Gateway).
+   - **Workspace Accounts:** Host workload envers (e.g., EKS clusters, microservices).
+   - **Security/Logging Accounts:** Centralized security/logging services.
 
-CDK deployment artifacts.
+- **Config Store:**
+   - Uses AWS SSM Parameter Store (versioned configurations) and EventBridge (change events).
+   - Secrets stored in AWS Secrets Manager.
 
-Custom resources via scripts (e.g., SSM parameters, S3 URIs).
+- **CI/CD:**
+   - Central Account orchestrates GitHub Workflows for envers.
+   - Supports rollbacks (CloudFormation), E2E testing, and cross-account deployments via IAM/STS.
 
-2.2 ContractsLib
-Purpose: Acts as a "congress" to define dependencies between envers, ensuring architectural integrity.
+---
 
-Features:
+**4. Key Features**
+- **On-Demand Environments:**
+   - Clone envers via Git branching (e.g., `odmd: create@<target-branch>`).
+   - Clones reuse dependencies but generate unique resource names (CDK branch parameterization).
+   - Isolated configurations; developers cannot access others' enver data.
 
-TypeScript-based with strict typing and unit tests.
+- **Dependency Management:**
+   - Cyclic dependencies resolved via placeholder initialization (e.g., networking ↔ logging).
+   - Consumers define reactions to product changes (e.g., auto-trigger CI/CD, alarms).
 
-Negotiated via PRs (like "bills") to enforce inter-team agreements.
+- **Security:**
+   - IAM roles enforce least privilege; Central Account assumes roles across target accounts.
+   - Enver configurations are securely isolated (e.g., offshore teams collaborate without data exposure).
 
-Prevents invalid dependencies (e.g., immutable envers cannot depend on mutable ones).
+- **Resource Isolation:**
+   - EKS envers use Kubernetes namespaces and workspace account IAM roles (OIDC federation).
+   - Global resources use CloudFormation physical IDs or branch/tag-derived names.
 
-Semantic versioning for backward compatibility.
+---
 
-2.3 Config Store
-Implementation: Uses AWS SSM Parameter Store (configuration values), Secrets Manager (secrets), and EventBridge (change events).
+**5. Workflows**
+- **Adding a Service:**
+   1. Define the service as a Build/Enver in ContractsLib (Level 2).
+   2. Submit PR for dependency negotiation.
+   3. Deploy updated ContractsLib to trigger platform pipelines.
 
-Versioning: All values are versioned; events trigger downstream workflows (e.g., Lambda functions for updates).
+- **Cloning an Enver:**
+   - Execute CLI command or Git commit comment (`odmd: create@<target-branch>`).
+   - Platform auto-generates a branch with copied logic, unique resource names, and shared dependencies.
 
-Security: Envers’ configurations are isolated; teams cannot access each other’s data.
+---
 
-2.4 Platform Infrastructure
-Accounts:
+**6. ContractsLib Structure**
+- **Level 1 (Core):**
+   - Base interfaces (`Build`, `Enver`, `Producer`, `Consumer`).
+   - Managed by the platform team; integrates with Central Account services.
 
-Central Account: Hosts platform deployment, CI/CD pipelines, and ContractsLib.
+- **Level 2 (Business-Specific):**
+   - Concrete service definitions (e.g., GitHub App setup, EKS cluster specs).
+   - Owned by teams; versioned and deployed independently.
 
-Workspace Accounts: Host workloads (e.g., EKS clusters, VPCs).
+---
 
-Specialized Accounts: Networking, logging, security (isolated by purpose).
+**7. Networking & EKS Envers**
+- **Networking Enver:**
+   - Provisions VPCs, Transit Gateway, and CIDR ranges (shared via IPAM).
+   - Each VPC connects to one TGW; disjoint TGWs enforce network isolation.
 
-IAM/STS: Central account assumes roles across other accounts for deployments.
+- **EKS Enver:**
+   - Deploys one EKS cluster per enver (workspace account).
+   - Consumes networking products (VPC endpoints, DNS).
+   - Maps IAM roles to Kubernetes service accounts via OIDC.
 
-3. Enver Lifecycle
-   3.1 Creation
-   Cloning:
+---
 
-Create a new branch with odmd: create@<target branch>; clones inherit dependencies but use unique resource names (e.g., my-env-clone).
+**8. Visualization & Management**
+- **Web Console:**
+   - AppSync-powered graph UI showing enver dependencies.
+   - Real-time updates from Config Store; interactive architecture diagrams.
 
-Isolation: Clones are fully isolated but share dependency logic (e.g., same CDK code with branch-specific parameters).
+- **Automated Cleanup:**
+   - Clones limited to 20 per enver; developers manually delete via platform tools.
 
-Limits: Up to 20 clones per enver; manual deletion required.
+---
 
-3.2 Deployment
-Process:
+**9. Compliance & Testing**
+- **Testing:**
+   - Unit tests in enver CI/CD; integration/E2E tests as separate envers.
+   - CloudFormation rollback for failed deployments.
 
-CDK synthesizes templates using branch/tag as a parameter.
+- **Audit:**
+   - SSM Parameter Store versions track configuration history.
 
-Resources deploy to target AWS accounts/regions (defined in enver configuration).
+---
 
-Products (e.g., IPAM CIDR, EKS endpoints) are written to the config store.
-
-Rollback: CloudFormation automatically reverts failed deployments.
-
-3.3 Dependency Resolution
-Cyclic Dependencies:
-
-Resolved via placeholders (e.g., networking enver initializes without central logging, then updates post-logging setup).
-
-Consumer Configuration:
-
-Define placeholder values for initial setup.
-
-React to upstream changes via EventBridge-triggered workflows (e.g., alarms, redeployments).
-
-4. Built-In Builds
-   Build	Description	Account
-   ContractsLib	Compiles/deploys ContractsLib; enforces dependency contracts.	Workspace0
-   Networking	Deploys VPCs, TGWs, and IPAM ranges. Each enver has a unique TGW.	Networking
-   User Auth	Manages web console (AppSync) for visualizing contracts.	Workspace0
-   EKS Cluster	Hosts EKS clusters; integrates with networking envers for VPC connectivity.	Workspace0
-5. CI/CD Workflow
-   Implementation: GitHub Actions, AWS CodePipeline, or Step Functions.
-
-Central Account Tasks:
-
-Generates standardized GitHub workflows for envers.
-
-Monitors config store changes and triggers downstream pipelines.
-
-Testing:
-
-Unit Tests: Run in enver-specific CI/CD.
-
-Integration/E2E Tests: Deployed as separate envers or integrated into target enver workflows.
-
-6. Security & Isolation
-   IAM Roles: Envers deploy using AWS STS with least-privilege roles.
-
-OIDC Federation: EKS service accounts map to workspace IAM roles via OIDC.
-
-Branch/Tag Isolation: Configurations are securely isolated between teams/branches.
-
-7. ContractsLib Structure
-   Level 1: Base interfaces/types (Build, Enver, Producer, Consumer) and central account contracts.
-
-Level 2: Business-specific implementations (e.g., GitHub App setup, enver target accounts).
-
-Ownership: Level 1 maintained by platform team; Level 2 by service owners.
-
-8. Adding a New Service
-   Define the service as a Build and Enver in ContractsLib Level 2.
-
-Publish ContractsLib updates (PRs require team consensus).
-
-Consume/publish enver products via config store.
-
-9. Web GUI
-   Features:
-
-Interactive architecture diagram of enver dependencies (AppSync + GraphQL).
-
-Real-time syncing from config store.
-
-Deployment visibility (e.g., clone status, pipeline progress).
-
-10. Best Practices
-    Avoid Dependency Cycles: Use placeholders for initialization.
-
-Immutable for Prod: Tag-based envers ensure stability.
-
-Resource Naming: Use CFN-generated physical names or branch/tag suffixes for uniqueness.
-
-11. Example Use Case: Networking + EKS
-    Networking Enver:
-
-Provisions VPC, TGW, and IPAM CIDR.
-
-Writes CIDR to SSM (/networking/enver-1/cidr).
-
-EKS Enver:
-
-Reads CIDR from SSM.
-
-Deploys EKS cluster in the CIDR range.
-
-Exposes cluster endpoint via SSM (/eks/enver-2/endpoint).
-
-12. Future Considerations
-    Cross-Region Support: Extend enver deployments to multiple regions.
-
-Custom Resource Providers: Allow teams to define non-AWS resources (e.g., SaaS integrations).
-
+**10. Conclusion**  
+OnDemandEnv provides a Git-centric, self-service platform for managing distributed systems at scale. By codifying dependencies in ContractsLib and leveraging AWS-native tooling, it ensures consistency, isolation, and agility across teams and environments.
