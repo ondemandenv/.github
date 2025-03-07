@@ -41,6 +41,6 @@ The `odmd-contracts-sandbox` repository serves as a concrete example of a **Cont
 
 Dive into the `odmd-contracts-sandbox` repository to explore the concrete examples of build and enver definitions. Examine the code, understand the service contracts, and see how ondemandenv can help you manage your distributed system SDLC.
 
-[Understand How OndemandENV work ](https://github.com/ondemandenv/INTRO.MD)
+[Understand How OndemandENV work ](https://github.com/ondemandenv/.github/blob/main/profile/INTRO.MD)
 
-[Explore the odmd-contracts-sandbox repository!](https://github.com/ondemandenv/)
+[Explore the odmd-contracts-sandbox repository!](https://github.com/ondemandenv/odmd-contracts-sandbox)
