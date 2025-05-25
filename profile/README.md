@@ -70,7 +70,6 @@ Real apps demonstrating AWS + Kubernetes unified in single codebases
 ### 🌐 **Platform Services**
 - **[`networking`](https://github.com/ondemandenv/networking)** - IPAM, Transit Gateway, cross-account VPCs
 - **[`odmd-eks`](https://github.com/ondemandenv/odmd-eks)** - Production EKS with IRSA security
-- **[`springcdk-rds`](https://github.com/ondemandenv/springcdk-rds)** - Database platform services
 
 ### 📱 **Application Examples**
 - **[`spring-boot-swagger-3-example`](https://github.com/ondemandenv/spring-boot-swagger-3-example)** - Unified Cloud Stacks demo
